@@ -2,16 +2,16 @@
 declare (strict_types = 1);
 namespace ModusCreate\Test\Repository;
 
-use ModusCreate\Repository\NHTSASafetyRatingsModelYearRepository;
+use ModusCreate\Repository\NHTSASafetyRatingsVehicleIdRepository;
 
-class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
+class NHTSASafetyRatingsVehicleIdRepositoryTest extends RepositoryTestAbstract
 {
     /**
      * @return string
      */
     protected function getRepositoryClassName() : string
     {
-        return NHTSASafetyRatingsModelYearRepository::class;
+        return NHTSASafetyRatingsVehicleIdRepository::class;
     }
 
     /**
@@ -20,9 +20,7 @@ class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
     protected function getParameters() : array
     {
         return [
-            'modelYear' => 2015,
-            'manufacturer' => 'Audi',
-            'model' => 'A3'
+            'VehicleId' => 9594,
         ];
     }
 
@@ -31,7 +29,7 @@ class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
      */
     protected function getEndpoint() : string
     {
-        return '/SafetyRatings/modelyear/2015/make/Audi/model/A3?format=json';
+        return '/SafetyRatings/VehicleId/9594?format=json';
     }
 
     /**
@@ -39,6 +37,6 @@ class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
      */
     protected function getFixture() : string
     {
-        return file_get_contents(__DIR__ . '/../fixtures/modelyear.json');
+        return file_get_contents(__DIR__ . '/../fixtures/vehicleId.json');
     }
 }

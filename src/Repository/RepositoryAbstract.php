@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 namespace ModusCreate\Repository;
 
 use GuzzleHttp\Client;
@@ -24,7 +24,7 @@ abstract class RepositoryAbstract implements RepositoryInterface
      * @param array $parameters
      * @return PromiseInterface
      */
-    public function find(array $parameters): PromiseInterface
+    public function find(array $parameters) : PromiseInterface
     {
         $endpoint = $this->createEndpointFromParameters($parameters);
         return $this->client->getAsync($endpoint);
@@ -34,7 +34,7 @@ abstract class RepositoryAbstract implements RepositoryInterface
      * @param array $parameters
      * @return string
      */
-    public function createEndpointFromParameters(array $parameters): string
+    public function createEndpointFromParameters(array $parameters) : string
     {
         return sprintf(static::ENDPOINT, ...array_values($parameters));
     }

@@ -1,8 +1,9 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 namespace ModusCreate\Factory;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 class NHTSAClientFactory
 {
@@ -10,9 +11,9 @@ class NHTSAClientFactory
     private const BASE_URI_KEY = 'base_uri';
 
     /**
-     * @return Client
+     * @return ClientInterface
      */
-    public static function createClient(): Client
+    public static function newInstance() : ClientInterface
     {
         return new Client([
             self::BASE_URI_KEY => self::BASE_URI
