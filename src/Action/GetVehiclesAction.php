@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 namespace ModusCreate\Action;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,7 +25,8 @@ class GetVehiclesAction
         ServerRequestInterface $request,
         ResponseInterface $response,
         array $args
-    ) : ResponseInterface {
+    ) : ResponseInterface
+    {
 
         // [
         //     self::MODEL_YEAR => $modelYear,
