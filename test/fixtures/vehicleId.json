@@ -1,0 +1,31 @@
+{
+    "Count": 1,
+    "Message": "Results returned successfully",
+    "Results": [
+        {
+            "OverallRating": "Not Rated",
+            "OverallFrontCrashRating": "Not Rated",
+            "FrontCrashDriversideRating": "Not Rated",
+            "FrontCrashPassengersideRating": "Not Rated",
+            "OverallSideCrashRating": "Not Rated",
+            "SideCrashDriversideRating": "Not Rated",
+            "SideCrashPassengersideRating": "Not Rated",
+            "RolloverRating": "Not Rated",
+            "RolloverRating2": "Not Rated",
+            "RolloverPossibility": 0,
+            "RolloverPossibility2": 0,
+            "SidePoleCrashRating": "Not Rated",
+            "NHTSAElectronicStabilityControl": "Standard",
+            "NHTSAForwardCollisionWarning": "No",
+            "NHTSALaneDepartureWarning": "No",
+            "ComplaintsCount": 14,
+            "RecallsCount": 1,
+            "InvestigationCount": 0,
+            "ModelYear": 2005,
+            "Make": "MERCEDES-BENZ",
+            "Model": "SLK-CLASS",
+            "VehicleDescription": "2005 Mercedes-Benz SLK-Class - Convertible",
+            "VehicleId": 1417
+        }
+    ]
+}
