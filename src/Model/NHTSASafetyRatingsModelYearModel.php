@@ -2,7 +2,7 @@
 declare (strict_types = 1);
 namespace ModusCreate\Model;
 
-use GuzzleHttp\Promise\RejectionException;
+use Exception;
 
 class NHTSASafetyRatingsModelYearModel extends ModelAbstract
 {
@@ -28,7 +28,8 @@ class NHTSASafetyRatingsModelYearModel extends ModelAbstract
             return $this->normalizeCollection(
                 $this->replaceVehicleDescriptionKeyInCollection($collection)
             );
-        } catch (RejectionException $rejectedPromise) {
+        } catch (Exception $exception) {
+            // We should do something better with the exception handling
             return [
                 self::COUNT => 0,
                 self::RESULTS => []

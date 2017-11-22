@@ -29,7 +29,7 @@ class NHTSASafetyRatingsVehicleIdRepositoryTest extends RepositoryTestAbstract
      */
     protected function getEndpoint() : string
     {
-        return '/SafetyRatings/VehicleId/9594?format=json';
+        return 'SafetyRatings/VehicleId/9594?format=json';
     }
 
     /**

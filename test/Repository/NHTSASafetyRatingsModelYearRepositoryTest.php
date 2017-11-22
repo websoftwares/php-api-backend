@@ -31,7 +31,7 @@ class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
      */
     protected function getEndpoint() : string
     {
-        return '/SafetyRatings/modelyear/2005/make/MERCEDES-BENZ/model/SLK-CLASS?format=json';
+        return 'SafetyRatings/modelyear/2005/make/MERCEDES-BENZ/model/SLK-CLASS?format=json';
     }
 
     /**

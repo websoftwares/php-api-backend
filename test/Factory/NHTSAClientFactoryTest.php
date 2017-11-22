@@ -23,6 +23,6 @@ class NHTSAClientFactoryTest extends TestCase
         $uri = NHTSAClientFactory::newInstance()->getConfig('base_uri');
         $this->assertEquals('https', $uri->getScheme());
         $this->assertEquals('one.nhtsa.gov', $uri->getHost());
-        $this->assertEquals('/webapi/api', $uri->getPath());
+        $this->assertEquals('/webapi/api/', $uri->getPath());
     }
 }
