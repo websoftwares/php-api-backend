@@ -10,10 +10,7 @@ class NHTSAClientFactory
     private const BASE_URI = 'https://one.nhtsa.gov/webapi/api';
     private const BASE_URI_KEY = 'base_uri';
 
-    /**
-     * @return ClientInterface
-     */
-    public static function newInstance() : ClientInterface
+    public function newInstance() : ClientInterface
     {
         return new Client([
             self::BASE_URI_KEY => self::BASE_URI

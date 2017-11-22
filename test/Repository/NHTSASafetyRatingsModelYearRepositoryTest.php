@@ -20,9 +20,9 @@ class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
     protected function getParameters() : array
     {
         return [
-            'modelYear' => 2015,
-            'manufacturer' => 'Audi',
-            'model' => 'A3'
+            'model_year' => 2005,
+            'manufacturer' => 'MERCEDES-BENZ',
+            'model' => 'SLK-CLASS'
         ];
     }
 
@@ -31,7 +31,7 @@ class NHTSASafetyRatingsModelYearRepositoryTest extends RepositoryTestAbstract
      */
     protected function getEndpoint() : string
     {
-        return '/SafetyRatings/modelyear/2015/make/Audi/model/A3?format=json';
+        return '/SafetyRatings/modelyear/2005/make/MERCEDES-BENZ/model/SLK-CLASS?format=json';
     }
 
     /**
