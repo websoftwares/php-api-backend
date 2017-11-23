@@ -16,7 +16,7 @@ Example backend that consumes external api.
 php composer.phar install
 ```
 
-4) Start php web server from root folder (not document root)
+2) Start php web server from root folder (not document root)
 
 ```
 php -S localhost:8080 -t public/
