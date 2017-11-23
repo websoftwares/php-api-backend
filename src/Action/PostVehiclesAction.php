@@ -4,7 +4,7 @@ namespace ModusCreate\Action;
 
 use Psr\Http\Message\{ServerRequestInterface, ResponseInterface};
 
-class GetVehiclesAction extends ActionAbstract
+class PostVehiclesAction extends ActionAbstract
 {
     /**
      * @param ServerRequestInterface $request
@@ -14,12 +14,12 @@ class GetVehiclesAction extends ActionAbstract
      */
     public function __invoke(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        array $args
+        ResponseInterface $response
     ) : ResponseInterface {
-        // We should of course in a real life situation add validation, sanitizing,
+        // We should of course in a real life situation add sanitizing, etc
         // etc here before sending it to the next layer.
-        $result = $this->model->find($args);
+        $body = json_decode((string) $request->getBody(), true);
+        $result = $this->model->find($body);
         return $response->withJson($result);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 namespace ModusCreate\Test\Action;
 
-use ModusCreate\Action\GetVehiclesAction;
+use ModusCreate\Action\PostVehiclesAction;
 use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
 
-class GetVehiclesActionTest extends ActionTestAbstract
+class PostVehiclesActionTest extends ActionTestAbstract
 {
 
     /**
@@ -12,19 +12,19 @@ class GetVehiclesActionTest extends ActionTestAbstract
      */
     protected function getActionClassName() : string
     {
-        return GetVehiclesAction::class;
+        return PostVehiclesAction::class;
     }
 
     /**
-     * @return array
+     * @return void
      */
     public function environmentDataProvider() : array
     {
         return [
             [
                 [
-                    'REQUEST_METHOD' => 'GET',
-                    'REQUEST_URI' => '/vehicles/2015/Audi/A3'
+                    'REQUEST_METHOD' => 'POST',
+                    'REQUEST_URI' => '/vehicles'
                 ],
                 [
                     NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
@@ -35,8 +35,8 @@ class GetVehiclesActionTest extends ActionTestAbstract
             ],
             [
                 [
-                    'REQUEST_METHOD' => 'GET',
-                    'REQUEST_URI' => '/vehicles/2015/Toyota/Yaris'
+                    'REQUEST_METHOD' => 'POST',
+                    'REQUEST_URI' => '/vehicles'
                 ],
                 [
                     NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
@@ -47,25 +47,12 @@ class GetVehiclesActionTest extends ActionTestAbstract
             ],
             [
                 [
-                    'REQUEST_METHOD' => 'GET',
-                    'REQUEST_URI' => '/vehicles/2015/Ford/Crown%20Victoria'
+                    'REQUEST_METHOD' => 'POST',
+                    'REQUEST_URI' => '/vehicles'
                 ],
                 [
-                    NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
-                    NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Ford',
-                    NHTSASafetyRatingsModelYearModel::MODEL => 'Crown Victoria'
-                ],
-                file_get_contents(__DIR__ . '/../fixtures/notFound.json')
-            ],
-            [
-                [
-                    'REQUEST_METHOD' => 'GET',
-                    'REQUEST_URI' => '/vehicles/undefined/Ford/Fusion'
-                ],
-                [
-                    NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 'undefined',
-                    NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Ford',
-                    NHTSASafetyRatingsModelYearModel::MODEL => 'Crown Victoria'
+                    NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Honda',
+                    NHTSASafetyRatingsModelYearModel::MODEL => 'Accord'
                 ],
                 file_get_contents(__DIR__ . '/../fixtures/notFound.json')
             ]

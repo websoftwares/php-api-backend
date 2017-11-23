@@ -5,6 +5,7 @@ namespace ModusCreate\Test\Integration;
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
 
 class HTTPRequestTest extends TestCase
 {
@@ -38,6 +39,7 @@ class HTTPRequestTest extends TestCase
     public function requestProvider() : array
     {
         $notFoundResponse = file_get_contents(__DIR__ . '/../fixtures/notFound.json');
+        $postHeaders = ['Content-Type' => 'application/json; charset=utf-8'];
 
         return [
             [
@@ -55,7 +57,36 @@ class HTTPRequestTest extends TestCase
             [
                 new Request('GET', 'http://app:8000/vehicles/undefined/Ford/Fusion'),
                 $notFoundResponse
-            ]
+            ],
+            [
+                new Request('POST', 'http://app:8000/vehicles', $postHeaders, json_encode(
+                    [
+                        NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
+                        NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Audi',
+                        NHTSASafetyRatingsModelYearModel::MODEL => 'A3'
+                    ]
+                )),
+                file_get_contents(__DIR__ . '/../fixtures/2015AudiA3.json')
+            ],
+            [
+                new Request('POST', 'http://app:8000/vehicles', $postHeaders, json_encode(
+                    [
+                        NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
+                        NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Toyota',
+                        NHTSASafetyRatingsModelYearModel::MODEL => 'Yaris'
+                    ]
+                )),
+                file_get_contents(__DIR__ . '/../fixtures/2015ToyotaYaris.json')
+            ],
+            [
+                new Request('POST', 'http://app:8000/vehicles', $postHeaders, json_encode(
+                    [
+                        NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Honda',
+                        NHTSASafetyRatingsModelYearModel::MODEL => 'Accord'
+                    ]
+                )),
+                $notFoundResponse
+            ],
         ];
     }
 }

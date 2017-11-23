@@ -159,9 +159,9 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
     protected function getParameters() : array
     {
         return [
-            'model_year' => 2005,
-            'manufacturer' => 'MERCEDES-BENZ',
-            'model' => 'SLK-CLASS'
+            NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2005,
+            NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'MERCEDES-BENZ',
+            NHTSASafetyRatingsModelYearModel::MODEL => 'SLK-CLASS'
         ];
     }
 

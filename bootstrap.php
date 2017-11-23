@@ -31,7 +31,7 @@ include 'vendor/autoload.php';
  */
 use Slim\Container;
 use Slim\App;
-use ModusCreate\Action\GetVehiclesAction;
+use ModusCreate\Action\{GetVehiclesAction, PostVehiclesAction};
 use ModusCreate\Repository\NHTSASafetyRatingsModelYearRepository;
 use ModusCreate\Factory\NHTSAClientFactory;
 use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
@@ -54,13 +54,22 @@ $app = new App($container);
 |--------------------------------------------------------------------------
  */
 $container = $app->getContainer();
+$container[NHTSASafetyRatingsModelYearModel::class] = function ($c) {
+    return new NHTSASafetyRatingsModelYearModel(
+        new NHTSASafetyRatingsModelYearRepository(
+            NHTSAClientFactory::newInstance()
+        )
+    );
+};
 $container[GetVehiclesAction::class] = function ($c) {
     return new GetVehiclesAction(
-        new NHTSASafetyRatingsModelYearModel(
-            new NHTSASafetyRatingsModelYearRepository(
-                NHTSAClientFactory::newInstance()
-            )
-        )
+        $c->get(NHTSASafetyRatingsModelYearModel::class)
+    );
+};
+
+$container[PostVehiclesAction::class] = function ($c) {
+    return new PostVehiclesAction(
+        $c->get(NHTSASafetyRatingsModelYearModel::class)
     );
 };
 /*
@@ -68,5 +77,6 @@ $container[GetVehiclesAction::class] = function ($c) {
 | Dispatch
 |--------------------------------------------------------------------------
  */
-$app->get('/vehicles/{model_year}/{manufacturer}/{model}', GetVehiclesAction::class);
+$app->get('/vehicles/{modelYear}/{manufacturer}/{model}', GetVehiclesAction::class);
+$app->post('/vehicles', PostVehiclesAction::class);
 $app->run();

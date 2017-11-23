@@ -15,14 +15,26 @@ class NHTSASafetyRatingsModelYearModel extends ModelAbstract
     /** response */
     private const VEHICLE_DESCRIPTION = 'VehicleDescription';
 
+    /** parameters */
+    public const MODEL_YEAR = 'modelYear';
+    public const MANUFACTURER = 'manufacturer';
+    public const MODEL = 'model';
+    private const UNDEFINED = 'undefined';
+
     /**
      * @param array $data
      * @return array
      */
     public function find(array $data) : array
     {
+        $parameters = [
+            self::MODEL_YEAR => $data[self::MODEL_YEAR] ??  self::UNDEFINED,
+            self::MANUFACTURER => $data[self::MANUFACTURER] ?? self::UNDEFINED,
+            self::MODEL => $data[self::MODEL] ?? self::UNDEFINED,
+        ];
+
         try {
-            $response = $this->repository->find($data)->wait();
+            $response = $this->repository->find($parameters)->wait();
             $collection = json_decode((string)$response->getBody(), true);
 
             return $this->normalizeCollection(
