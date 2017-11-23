@@ -32,9 +32,9 @@ include 'vendor/autoload.php';
 use Slim\Container;
 use Slim\App;
 use ModusCreate\Action\{GetVehiclesAction, PostVehiclesAction};
-use ModusCreate\Repository\NHTSASafetyRatingsModelYearRepository;
+use ModusCreate\Repository\{NHTSASafetyRatingsModelYearRepository, NHTSASafetyRatingsVehicleIdRepository};
 use ModusCreate\Factory\NHTSAClientFactory;
-use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
+use ModusCreate\Model\{NHTSASafetyRatingsModelYearModel, NHTSASafetyRatingsModelYearWithRatingModel};
 
 /*
 |--------------------------------------------------------------------------
@@ -44,16 +44,9 @@ use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
 $container = new Container;
 /*
 |--------------------------------------------------------------------------
-| Create app
-|--------------------------------------------------------------------------
- */
-$app = new App($container);
-/*
-|--------------------------------------------------------------------------
 | Inversion of control
 |--------------------------------------------------------------------------
  */
-$container = $app->getContainer();
 $container[NHTSASafetyRatingsModelYearModel::class] = function ($c) {
     return new NHTSASafetyRatingsModelYearModel(
         new NHTSASafetyRatingsModelYearRepository(
@@ -61,17 +54,30 @@ $container[NHTSASafetyRatingsModelYearModel::class] = function ($c) {
         )
     );
 };
-$container[GetVehiclesAction::class] = function ($c) {
-    return new GetVehiclesAction(
+$container[NHTSASafetyRatingsModelYearWithRatingModel::class] = function ($c) {
+    return new NHTSASafetyRatingsModelYearWithRatingModel(
+        new NHTSASafetyRatingsVehicleIdRepository(
+            NHTSAClientFactory::newInstance()
+        ),
         $c->get(NHTSASafetyRatingsModelYearModel::class)
     );
 };
-
+$container[GetVehiclesAction::class] = function ($c) {
+    return new GetVehiclesAction(
+        $c->get(NHTSASafetyRatingsModelYearWithRatingModel::class)
+    );
+};
 $container[PostVehiclesAction::class] = function ($c) {
     return new PostVehiclesAction(
         $c->get(NHTSASafetyRatingsModelYearModel::class)
     );
 };
+/*
+|--------------------------------------------------------------------------
+| Create app
+|--------------------------------------------------------------------------
+ */
+$app = new App($container);
 /*
 |--------------------------------------------------------------------------
 | Dispatch

@@ -3,9 +3,13 @@ declare (strict_types = 1);
 namespace ModusCreate\Action;
 
 use Psr\Http\Message\{ServerRequestInterface, ResponseInterface};
+use ModusCreate\Model\NHTSASafetyRatingsModelYearWithRatingModel;
 
 class GetVehiclesAction extends ActionAbstract
 {
+    /** get parameters */
+    private const WITH_RATING = NHTSASafetyRatingsModelYearWithRatingModel::WITH_RATING;
+
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
@@ -17,9 +21,9 @@ class GetVehiclesAction extends ActionAbstract
         ResponseInterface $response,
         array $args
     ) : ResponseInterface {
-        // We should of course in a real life situation add validation, sanitizing,
-        // etc here before sending it to the next layer.
+        $args[self::WITH_RATING] = $request->getQueryParam(self::WITH_RATING, '');
         $result = $this->model->find($args);
+
         return $response->withJson($result);
     }
 }

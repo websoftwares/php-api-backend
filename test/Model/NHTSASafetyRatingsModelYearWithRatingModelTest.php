@@ -3,32 +3,43 @@ declare (strict_types = 1);
 namespace ModusCreate\Test\Model;
 
 use PHPUnit\Framework\TestCase;
-use ModusCreate\Repository\RepositoryInterface;
-use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
+use ModusCreate\Repository\NHTSASafetyRatingsVehicleIdRepository;
+use ModusCreate\Model\{NHTSASafetyRatingsModelYearModel, NHTSASafetyRatingsModelYearWithRatingModel};
 use GuzzleHttp\Promise\{FulfilledPromise, PromiseInterface, RejectedPromise};
 use GuzzleHttp\Psr7\Response;
 
-class NHTSASafetyRatingsModelYearModelTest extends TestCase
+class NHTSASafetyRatingsModelYearWithRatingModelTest extends TestCase
 {
     /**
-     * @var RepositoryInterface
+     * @var NHTSASafetyRatingsVehicleIdRepository
      */
     private $repository;
 
     /**
-     * @var NHTSASafetyRatingsModelYear
+     * @var NHTSASafetyRatingsModelYearWithRatingModel
      */
     private $model;
+
+    /**
+     * @var NHTSASafetyRatingsModelYearModel
+     */
+    private $yearModel;
 
     public function setUp()
     {
         $this->repository = $this
-            ->getMockBuilder(RepositoryInterface::class)
+            ->getMockBuilder(NHTSASafetyRatingsVehicleIdRepository::class)
             ->disableOriginalConstructor()
             ->setMethods(['find', 'createEndpointFromParameters'])
             ->getMock();
 
-        $this->model = new NHTSASafetyRatingsModelYearModel($this->repository);
+        $this->yearModel = $this
+            ->getMockBuilder(NHTSASafetyRatingsModelYearModel::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['find'])
+            ->getMock();
+
+        $this->model = new NHTSASafetyRatingsModelYearWithRatingModel($this->repository, $this->yearModel);
     }
 
     /**
@@ -37,20 +48,25 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
      * @param array $parameters
      * @return void
      */
-    public function testFindSucceeds(FulfilledPromise $promise, array $parameters)
+    public function testFindSucceeds(FulfilledPromise $promise, array $parameters, array $response)
     {
         $expected = [
             NHTSASafetyRatingsModelYearModel::COUNT => 1,
             NHTSASafetyRatingsModelYearModel::RESULTS  => [
                 [
                     NHTSASafetyRatingsModelYearModel::VEHICLE_ID => 1417,
-                    NHTSASafetyRatingsModelYearModel::DESCRIPTION => '2005 Mercedes-Benz SLK-Class - Convertible'
+                    NHTSASafetyRatingsModelYearModel::DESCRIPTION => '2005 Mercedes-Benz SLK-Class - Convertible',
+                    NHTSASafetyRatingsModelYearWithRatingModel::CRASH_RATING => 'Not Rated'
                 ]
             ]
         ];
 
-        $this->repository->expects($this->once())->method('find')
+        $this->yearModel->expects($this->once())->method('find')
             ->with($this->equalTo($parameters))
+            ->will($this->returnValue($response));
+
+        $this->repository->expects($this->once())->method('find')
+            ->with($this->equalTo([NHTSASafetyRatingsModelYearModel::VEHICLE_ID => 1417]))
             ->will($this->returnValue($promise));
 
         $actual = $this->model->find($parameters);
@@ -70,9 +86,9 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
             NHTSASafetyRatingsModelYearModel::RESULTS => []
         ];
 
-        $this->repository->expects($this->once())->method('find')
+        $this->yearModel->expects($this->once())->method('find')
             ->with($this->equalTo($parameters))
-            ->will($this->returnValue($promise));
+            ->will($this->returnValue($expected));
 
         $actual = $this->model->find($parameters);
         $this->assertEquals($expected, $actual);
@@ -84,15 +100,19 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
      * @param array $parameters
      * @return void
      */
-    public function testFindFails(RejectedPromise $promise, array $parameters)
+    public function testFindFails(RejectedPromise $promise, array $parameters, array $response)
     {
         $expected = [
             NHTSASafetyRatingsModelYearModel::COUNT => 0,
             NHTSASafetyRatingsModelYearModel::RESULTS => []
         ];
 
+        $this->yearModel->expects($this->once())->method('find')
+        ->with($this->equalTo($parameters))
+        ->will($this->returnValue($response));
+
         $this->repository->expects($this->once())->method('find')
-            ->with($this->equalTo($parameters))
+            ->with($this->equalTo([NHTSASafetyRatingsModelYearModel::VEHICLE_ID => 1417]))
             ->will($this->returnValue($promise));
 
         $actual = $this->model->find($parameters);
@@ -113,7 +133,8 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
                         $this->getSuccessFixture()
                     )
                 ),
-                $this->getParameters()
+                $this->getParameters(),
+                $this->getModelResponse()
             ]
         ];
     }
@@ -132,7 +153,7 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
                         $this->getNotFoundFixture()
                     )
                 ),
-                $this->getParameters()
+                $this->getParameters(),
             ]
         ];
     }
@@ -147,8 +168,8 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
                 new RejectedPromise(
                     'Error'
                 ),
-                $this->getParameters()
-
+                $this->getParameters(),
+                $this->getModelResponse()
             ]
         ];
     }
@@ -161,8 +182,8 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
         return [
             NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2005,
             NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'MERCEDES-BENZ',
-            NHTSASafetyRatingsModelYearModel::MODEL => 'SLK-CLASS'
-
+            NHTSASafetyRatingsModelYearModel::MODEL => 'SLK-CLASS',
+            NHTSASafetyRatingsModelYearWithRatingModel::WITH_RATING => 'true'
         ];
     }
 
@@ -171,7 +192,7 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
      */
     protected function getSuccessFixture() : string
     {
-        return file_get_contents(__DIR__ . '/../fixtures/modelyear.json');
+        return file_get_contents(__DIR__ . '/../fixtures/SLKRating.json');
     }
 
     /**
@@ -180,5 +201,13 @@ class NHTSASafetyRatingsModelYearModelTest extends TestCase
     protected function getNotFoundFixture() : string
     {
         return file_get_contents(__DIR__ . '/../fixtures/noResult.json');
+    }
+
+    /**
+     * @return array
+     */
+    protected function getModelResponse() : array
+    {
+        return json_decode(file_get_contents(__DIR__ . '/../fixtures/SLKVehicle.json'), true);
     }
 }

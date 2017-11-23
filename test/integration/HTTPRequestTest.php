@@ -87,6 +87,18 @@ class HTTPRequestTest extends TestCase
                 )),
                 $notFoundResponse
             ],
+            [
+                new Request('GET', 'http://app:8000/vehicles/2015/Audi/A3?withRating=true'),
+                file_get_contents(__DIR__ . '/../fixtures/2015AudiA3Rating.json')
+            ],
+            [
+                new Request('GET', 'http://app:8000/vehicles/2015/Audi/A3?withRating=false'),
+                file_get_contents(__DIR__ . '/../fixtures/2015AudiA3.json')
+            ],
+            [
+                new Request('GET', 'http://app:8000/vehicles/2015/Audi/A3?withRating=bananas'),
+                file_get_contents(__DIR__ . '/../fixtures/2015AudiA3.json')
+            ],
         ];
     }
 }

@@ -2,7 +2,7 @@
 namespace ModusCreate\Test\Action;
 
 use ModusCreate\Action\GetVehiclesAction;
-use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
+use ModusCreate\Model\{NHTSASafetyRatingsModelYearModel, NHTSASafetyRatingsModelYearWithRatingModel};
 
 class GetVehiclesActionTest extends ActionTestAbstract
 {
@@ -29,7 +29,8 @@ class GetVehiclesActionTest extends ActionTestAbstract
                 [
                     NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
                     NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Audi',
-                    NHTSASafetyRatingsModelYearModel::MODEL => 'A3'
+                    NHTSASafetyRatingsModelYearModel::MODEL => 'A3',
+                    NHTSASafetyRatingsModelYearWithRatingModel::WITH_RATING => ''
                 ],
                 file_get_contents(__DIR__ . '/../fixtures/2015AudiA3.json')
             ],
@@ -41,7 +42,8 @@ class GetVehiclesActionTest extends ActionTestAbstract
                 [
                     NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
                     NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Toyota',
-                    NHTSASafetyRatingsModelYearModel::MODEL => 'Yaris'
+                    NHTSASafetyRatingsModelYearModel::MODEL => 'Yaris',
+                    NHTSASafetyRatingsModelYearWithRatingModel::WITH_RATING => ''
                 ],
                 file_get_contents(__DIR__ . '/../fixtures/2015ToyotaYaris.json')
             ],
@@ -53,7 +55,8 @@ class GetVehiclesActionTest extends ActionTestAbstract
                 [
                     NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 2015,
                     NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Ford',
-                    NHTSASafetyRatingsModelYearModel::MODEL => 'Crown Victoria'
+                    NHTSASafetyRatingsModelYearModel::MODEL => 'Crown Victoria',
+                    NHTSASafetyRatingsModelYearWithRatingModel::WITH_RATING => ''
                 ],
                 file_get_contents(__DIR__ . '/../fixtures/notFound.json')
             ],
@@ -65,7 +68,8 @@ class GetVehiclesActionTest extends ActionTestAbstract
                 [
                     NHTSASafetyRatingsModelYearModel::MODEL_YEAR => 'undefined',
                     NHTSASafetyRatingsModelYearModel::MANUFACTURER => 'Ford',
-                    NHTSASafetyRatingsModelYearModel::MODEL => 'Crown Victoria'
+                    NHTSASafetyRatingsModelYearModel::MODEL => 'Fusion',
+                    NHTSASafetyRatingsModelYearWithRatingModel::WITH_RATING => ''
                 ],
                 file_get_contents(__DIR__ . '/../fixtures/notFound.json')
             ]
