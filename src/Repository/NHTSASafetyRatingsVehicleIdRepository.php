@@ -4,5 +4,5 @@ namespace ModusCreate\Repository;
 
 class NHTSASafetyRatingsVehicleIdRepository extends RepositoryAbstract
 {
-    protected const ENDPOINT = '/SafetyRatings/VehicleId/%s?format=json';
+    protected const ENDPOINT = 'SafetyRatings/VehicleId/%s?format=json';
 }

@@ -5,9 +5,7 @@ namespace ModusCreate\Test\Model;
 use PHPUnit\Framework\TestCase;
 use ModusCreate\Repository\RepositoryInterface;
 use ModusCreate\Model\NHTSASafetyRatingsModelYearModel;
-use GuzzleHttp\Promise\FulfilledPromise;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
+use GuzzleHttp\Promise\{FulfilledPromise, PromiseInterface, RejectedPromise};
 use GuzzleHttp\Psr7\Response;
 
 class NHTSASafetyRatingsModelYearModelTest extends TestCase

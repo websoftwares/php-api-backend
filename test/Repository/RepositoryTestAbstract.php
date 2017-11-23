@@ -4,9 +4,7 @@ namespace ModusCreate\Test\Repository;
 
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise\FulfilledPromise;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
+use GuzzleHttp\Promise\{FulfilledPromise, PromiseInterface, RejectedPromise};
 use GuzzleHttp\Psr7\Response;
 
 abstract class RepositoryTestAbstract extends TestCase
