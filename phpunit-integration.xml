@@ -5,13 +5,6 @@
          colors="true"
          verbose="true">
     <testsuite>
-        <directory suffix="Test.php">test</directory>
-        <exclude>test/integration</exclude>
+        <directory suffix="Test.php">test/integration</directory>
     </testsuite>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
 </phpunit>

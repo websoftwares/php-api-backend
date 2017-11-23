@@ -22,7 +22,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ModusCreate\\Test\\": "test/"
+            "ModusCreate\\Test\\": "test/",
+            "ModusCreate\\Test\\Integration\\": "test/integration"
         }
     }
 }
