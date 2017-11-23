@@ -1,0 +1,10 @@
+{
+    "Count": 1,
+    "Message": "Results returned successfully",
+    "Results": [
+        {
+            "VehicleDescription": "2005 Mercedes-Benz SLK-Class - Convertible",
+            "VehicleId": 1417
+        }
+    ]
+}

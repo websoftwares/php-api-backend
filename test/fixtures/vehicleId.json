@@ -1,0 +1,28 @@
+{
+    "Count": 1,
+    "Message": "Results returned successfully",
+    "Results": [
+        {
+            "OverallRating": "5",
+            "OverallFrontCrashRating": "4",
+            "FrontCrashDriversideRating": "5",
+            "FrontCrashPassengersideRating": "4",
+            "OverallSideCrashRating": "5",
+            "SideCrashDriversideRating": "4",
+            "SideCrashPassengersideRating": "5",
+            "RolloverRating": "4",
+            "RolloverRating2": "Not Rated",
+            "RolloverPossibility": 0.1090,
+            "RolloverPossibility2": 0,
+            "SidePoleCrashRating": "5",
+            "ComplaintsCount": 39,
+            "RecallsCount": 0,
+            "InvestigationCount": 0,
+            "ModelYear": 2015,
+            "Make": "HYUNDAI",
+            "Model": "ELANTRA GT",
+            "VehicleDescription": "2015 Hyundai Elantra Gt 5 HB FWD",
+            "VehicleId": 9594
+        }
+    ]
+}
